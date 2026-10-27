@@ -1,0 +1,3 @@
+import { useStore } from '../store/useStore'
+import { useEmergencySettings as useEmergency } from '../components/SafetySOS'
+export default function SettingsPage(){const{resetDemo}=useStore();const{phone,whatsapp,institution,update}=useEmergency();return(<div className="page space"><div className="card"><h1>Settings</h1><h3>Safety SOS</h3><label>Institution</label><input value={institution} onChange={e=>update({institution:e.target.value})}/><label>Emergency phone</label><input value={phone} onChange={e=>update({phone:e.target.value})}/><label>WhatsApp</label><input value={whatsapp} onChange={e=>update({whatsapp:e.target.value})}/></div><div className="card"><h2>Demo data</h2><button className="btn-danger" onClick={resetDemo}>Reset demo progress</button></div></div>)}

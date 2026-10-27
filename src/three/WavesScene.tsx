@@ -1,0 +1,5 @@
+import { useRef,useState } from 'react'
+import { Canvas,useFrame } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+function Wave({freq}:{freq:number}){const g=useRef<any>(null);useFrame(({clock})=>{if(!g.current)return;g.current.children.forEach((b:any,i:number)=>{b.position.y=Math.sin(clock.elapsedTime*freq+i*0.5)*1.2})});const b=[];for(let i=0;i<24;i++)b.push(<mesh key={i} position={[i*0.6-7,0,0]}><sphereGeometry args={[0.18,16,16]}/><meshStandardMaterial color='#22d3ee'/></mesh>);return <group ref={g}>{b}</group>}
+export default function WavesScene(){const[f,setF]=useState(3);return(<div className='space'><label>Frequency {f}<input type='range' min='1' max='8' value={f} onChange={e=>setF(+e.target.value)}/></label><div style={{height:340,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,2,12]}}><ambientLight/><directionalLight/><Wave freq={f}/><OrbitControls/></Canvas></div></div>)}

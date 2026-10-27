@@ -1,0 +1,4 @@
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+export default function CircuitScene(){const[on,setOn]=useState(false);return(<div className='space'><button className={on?'btn-success':''} onClick={()=>setOn(!on)}>{on?'ON':'OFF'}</button><div style={{height:340,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,2,8]}}><ambientLight/><directionalLight/><mesh><torusGeometry args={[2.4,0.12,16,64]}/><meshStandardMaterial color={on?'#facc15':'#475569'} emissive={on?'#facc15':'#000'}/></mesh><mesh><sphereGeometry args={[0.55,32,32]}/><meshStandardMaterial color={on?'#fde047':'#334155'} emissive={on?'#facc15':'#000'}/></mesh><OrbitControls/></Canvas></div><div className='fb'>{on?'Current flows.':'No current.'}</div></div>)}

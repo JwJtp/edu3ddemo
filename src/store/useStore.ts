@@ -1,0 +1,10 @@
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import { PASS_MARK, subjects } from '../data/curriculum'
+type Role='student'|'teacher'|'parent'|null
+type Attempt={topicId:string;score:number;total:number;percent:number;passed:boolean;date:string}
+type Feedback={id:string;from:string;message:string;date:string}
+const today=()=>new Date().toISOString().slice(0,10)
+const initial={role:null as Role,name:'Demo Student',grade:8,xp:0,coins:0,streak:0,last:'',completed:[] as string[],unlocked:subjects.map(s=>s.topics[0].id),attempts:[] as Attempt[],labs:[] as string[],badges:[] as string[],feedback:[] as Feedback[]}
+export const useStore=create<any>()(persist((set,get)=>({...initial,setRole:(role:Role)=>set({role}),updateStreak:()=>{const t=today();if(get().last===t)return;const y=new Date();y.setDate(y.getDate()-1);set({streak:get().last===y.toISOString().slice(0,10)?get().streak+1:1,last:t})},completeLab:(id:string)=>set((s:any)=>s.labs.includes(id)?s:{labs:[...s.labs,id],xp:s.xp+25,coins:s.coins+5}),recordAttempt:(a:Attempt)=>set((s:any)=>{const best=s.attempts.find((x:any)=>x.topicId===a.topicId);const keep=best&&best.percent>=a.percent?a:best;const attempts=[...s.attempts.filter((x:any)=>x.topicId!==a.topicId),keep||a];if(!a.passed)return{attempts,xp:s.xp+a.score};const sub=subjects.find(x=>x.topics.some(t=>t.id===a.topicId));const i=sub?.topics.findIndex(t=>t.id===a.topicId)??-1;const next=sub?.topics[i+1];return{attempts,xp:s.xp+a.score*2,completed:s.completed.includes(a.topicId)?s.completed:[...s.completed,a.topicId],unlocked:next&&!s.unlocked.includes(next.id)?[...s.unlocked,next.id]:s.unlocked}}),addFeedback:(f:Feedback)=>set((s:any)=>({feedback:[f,...s.feedback]})),resetDemo:()=>set({...initial,role:get().role})}),{name:'eduverse-premium'}))
+export const scoreQuiz=(answers:Record<string,string>,questions:any[])=>{let score=0;questions.forEach(q=>{if((answers[q.id]||'').trim().toLowerCase()===q.answer.trim().toLowerCase())score++});const total=questions.length;const percent=total?Math.round(score/total*100):0;return{score,total,percent,passed:percent>=PASS_MARK}}

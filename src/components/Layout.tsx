@@ -1,0 +1,5 @@
+import { ReactNode } from 'react'
+import { Link,NavLink } from 'react-router-dom'
+import { useStore } from '../store/useStore'
+export default function Layout({children}:{children:ReactNode}){const{role,xp}=useStore();const links=[{to:'/',label:'Home'},{to:'/roles',label:'Roles'},...(role==='student'?[{to:'/student',label:'Student'}]:[]),...(role==='teacher'?[{to:'/teacher',label:'Teacher'}]:[]),...(role==='parent'?[{to:'/parent',label:'Parent'}]:[]),{to:'/feedback',label:'Feedback'},{to:'/settings',label:'Settings'}]
+return(<><header><Link to="/" style={{color:'#e9effc',fontWeight:800}}>🧪 EduVerse 3D AI</Link><nav className="nav">{links.map(l=><NavLink key={l.to} to={l.to} className={({isActive})=>isActive?'active':''}>{l.label}</NavLink>)}</nav><div className="pill">{role??'Guest'} • Level {Math.floor(xp/100)+1} • {xp} XP</div></header><div style={{display:'flex',justifyContent:'center',padding:12}}><span className="demo">DEMO MODE • Local browser data only</span></div><main>{children}</main></>)}

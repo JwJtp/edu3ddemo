@@ -1,0 +1,3 @@
+import { useState } from 'react'
+import { LineChart,Line,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts'
+export default function GraphScene(){const[a,setA]=useState(2);const d=Array.from({length:11},(_,x)=>({x,y:a*x}));return(<div className='space'><label>Slope {a}<input type='range' min='-5' max='5' value={a} onChange={e=>setA(+e.target.value)}/></label><div style={{height:340}}><ResponsiveContainer><LineChart data={d}><XAxis dataKey='x' stroke='#94a3b8'/><YAxis stroke='#94a3b8'/><Tooltip/><Line type='monotone' dataKey='y' stroke='#4f8cff' strokeWidth={3}/></LineChart></ResponsiveContainer></div></div>)}

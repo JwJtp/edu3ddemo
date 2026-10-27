@@ -1,0 +1,4 @@
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+export default function OpticsScene(){const[a,setA]=useState(35);return(<div className='space'><label>Incident angle {a}°<input type='range' min='10' max='80' value={a} onChange={e=>setA(+e.target.value)}/></label><div style={{height:340,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,2,9]}}><ambientLight/><directionalLight/><mesh rotation={[-Math.PI/2,0,0]}><planeGeometry args={[10,10]}/><meshStandardMaterial color='#1e293b'/></mesh><OrbitControls/></Canvas></div><div className='fb'>Reflected angle = {a}°.</div></div>)}

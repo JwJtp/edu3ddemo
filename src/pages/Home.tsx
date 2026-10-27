@@ -1,0 +1,3 @@
+import { Link } from 'react-router-dom'
+import { subjects } from '../data/curriculum'
+export default function Home(){return(<div className="page space"><div className="card"><h1>Premium 3D STEM learning</h1><p className="muted">32 topics, 15 interactive 3D scenes, labs, quizzes, unit tests, gamification and school dashboards.</p><Link className="btn-primary" to="/roles" style={{display:'inline-block',marginTop:12,padding:'12px 18px'}}>Start demo</Link></div><div className="grid grid-3">{subjects.map(s=><Link key={s.id} to={`/subject/${s.id}`} className="card"><div style={{fontSize:32}}>{s.icon}</div><h3>{s.name}</h3><p className="small muted">{s.topics.length} topics</p></Link>)}</div></div>)}

@@ -1,0 +1,2 @@
+import { useState } from 'react'
+export default function ProbabilityScene(){const[r,setR]=useState<number[]>([]);const roll=()=>setR(x=>[...x,1+Math.floor(Math.random()*6)]);const c=[1,2,3,4,5,6].map(n=>r.filter(x=>x===n).length);return(<div className='space'><button className='primary' onClick={roll}>Roll dice</button><div className='grid' style={{gridTemplateColumns:'repeat(6,1fr)'}}>{c.map((x,i)=><div key={i} className='card'><b>{i+1}</b><div className='bar'><i style={{width:r.length?(x/r.length)*100:0+'%'}}/></div><span>{x}</span></div>)}</div></div>)}

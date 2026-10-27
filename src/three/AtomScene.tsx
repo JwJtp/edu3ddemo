@@ -1,0 +1,5 @@
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Html } from '@react-three/drei'
+const e={Hydrogen:{s:[1],c:'#22d3ee'},Carbon:{s:[2,4],c:'#f59e0b'},Oxygen:{s:[2,6],c:'#ef4444'}}
+export default function AtomScene(){const[n,setN]=useState<keyof typeof e>('Carbon');const x=e[n];return(<div className='space'><div className='row'>{Object.keys(e).map(k=><button key={k} onClick={()=>setN(k as keyof typeof e)}>{k}</button>)}</div><div style={{height:360,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,2,8]}}><ambientLight/><directionalLight/><mesh><sphereGeometry args={[0.8,32,32]}/><meshStandardMaterial color={x.c}/><Html center><div style={{color:'white',fontWeight:700}}>{n[0]}</div></Html></mesh>{x.s.map((c,si)=>Array.from({length:c}).map((_,i)=>{const a=(i/c)*Math.PI*2;const r=1.6+si*0.9;return <mesh key={si+'-'+i} position={[Math.cos(a)*r,Math.sin(a)*r,0]}><sphereGeometry args={[0.14,16,16]}/><meshStandardMaterial color='#22d3ee'/></mesh>}))}<OrbitControls/></Canvas></div><div className='fb'>Shells: {x.s.join(', ')}</div></div>)}

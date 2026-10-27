@@ -1,0 +1,5 @@
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Html } from '@react-three/drei'
+const parts=[{n:'Nucleus',p:[0,0,0],c:'#8b5cf6',i:'Controls the cell.'},{n:'Mitochondria',p:[2,1,0],c:'#f97316',i:'Releases energy.'},{n:'Ribosome',p:[-2,-1,0],c:'#22c55e',i:'Builds proteins.'}]
+export default function CellScene(){const[s,setS]=useState(parts[0]);return(<div><div style={{height:380,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,2,8]}}><ambientLight/><directionalLight position={[4,5,5]}/><mesh><sphereGeometry args={[3.2,48,48]}/><meshStandardMaterial color='#0ea5e9' transparent opacity={0.18}/></mesh>{parts.map(p=><mesh key={p.n} position={p.p} onClick={()=>setS(p)}><sphereGeometry args={[s.n===p.n?0.85:0.6,32,32]}/><meshStandardMaterial color={p.c}/><Html center><div style={{color:'white',fontSize:11}}>{p.n}</div></Html></mesh>)}<OrbitControls/></Canvas></div><div className='fb'><b>{s.n}</b><p className='small muted'>{s.i}</p></div></div>)}

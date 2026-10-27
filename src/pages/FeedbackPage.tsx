@@ -1,0 +1,3 @@
+import { useState } from 'react'
+import { useStore } from '../store/useStore'
+export default function FeedbackPage(){const{role,feedback,addFeedback}=useStore();const[msg,setMsg]=useState('');return(<div className="page space"><div className="card"><h1>Feedback</h1><textarea rows={5} value={msg} onChange={e=>setMsg(e.target.value)}/><button className="btn-primary" style={{marginTop:12}} onClick={()=>{if(!msg.trim())return;addFeedback({id:crypto.randomUUID(),from:role??'Guest',message:msg,date:new Date().toISOString()});setMsg('')}}>Submit</button></div><div className="card"><h2>Inbox</h2>{feedback.length===0?<p className="muted">None.</p>:feedback.map((f:any)=><div key={f.id} className="fb"><b>{f.from}</b><p>{f.message}</p></div>)}</div></div>)}

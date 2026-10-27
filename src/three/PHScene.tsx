@@ -1,0 +1,2 @@
+import { useState } from 'react'
+export default function PHScene(){const[p,setP]=useState(7);const t=p<7?'Acidic':p>7?'Basic':'Neutral';return(<div className='space'><label>pH {p}<input type='range' min='0' max='14' value={p} onChange={e=>setP(+e.target.value)}/></label><div className='card'><h2>{t}</h2></div></div>)}

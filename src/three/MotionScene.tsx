@@ -1,0 +1,5 @@
+import { useRef,useState } from 'react'
+import { Canvas,useFrame } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+function Ball({f,m}:{f:number;m:number}){const r=useRef<any>(null);useFrame((_,d)=>{if(!r.current)return;r.current.position.x+=(f/m)*d;if(r.current.position.x>7)r.current.position.x=-7});return <mesh ref={r} position={[-7,0,0]}><sphereGeometry args={[0.7,32,32]}/><meshStandardMaterial color='#4f8cff'/></mesh>}
+export default function MotionScene(){const[f,setF]=useState(4);const[m,setM]=useState(2);return(<div className='space'><div className='row'><label>Force {f}<input type='range' min='1' max='10' value={f} onChange={e=>setF(+e.target.value)}/></label><label>Mass {m}<input type='range' min='1' max='10' value={m} onChange={e=>setM(+e.target.value)}/></label><div className='pill'>a={(f/m).toFixed(2)}</div></div><div style={{height:360,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,3,12]}}><ambientLight/><directionalLight/><Ball f={f} m={m}/><OrbitControls/></Canvas></div></div>)}

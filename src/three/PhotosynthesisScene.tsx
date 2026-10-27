@@ -1,0 +1,4 @@
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+export default function PhotosynthesisScene(){const[l,setL]=useState(5);return(<div className='space'><label>Sunlight {light}<input type='range' min='1' max='10' value={light} onChange={e=>setLight(+e.target.value)}/></label><div style={{height:360,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,2,7]}}><ambientLight intensity={light/10}/><directionalLight position={[3,5,4]}/><mesh position={[0,-1,0]}><cylinderGeometry args={[0.25,0.35,3,16]}/><meshStandardMaterial color='#16a34a'/></mesh><mesh position={[0,1,0]}><sphereGeometry args={[1.2,32,32]}/><meshStandardMaterial color='#22c55e'/></mesh><OrbitControls/></Canvas></div><div className='fb'>More sunlight increases photosynthesis in this simplified model.</div></div>)}

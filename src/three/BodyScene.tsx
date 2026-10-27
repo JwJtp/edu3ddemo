@@ -1,0 +1,5 @@
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Html } from '@react-three/drei'
+const organs=[{n:'Heart',p:[0,0.5,0],c:'#ef4444',i:'Pumps blood.'},{n:'Lungs',p:[-1.4,0.8,0],c:'#38bdf8',i:'Exchange gases.'},{n:'Stomach',p:[0.8,-0.8,0],c:'#f59e0b',i:'Breaks down food.'}]
+export default function BodyScene(){const[s,setS]=useState(organs[0]);return(<div><div style={{height:380,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,0,7]}}><ambientLight/><directionalLight/>{organs.map(o=><mesh key={o.n} position={o.p} onClick={()=>setS(o)}><sphereGeometry args={[0.75,32,32]}/><meshStandardMaterial color={o.c}/><Html center><div style={{color:'white',fontSize:11}}>{o.n}</div></Html></mesh>)}<OrbitControls/></Canvas></div><div className='fb'><b>{s.n}</b><p className='small muted'>{s.i}</p></div></div>)}

@@ -1,0 +1,5 @@
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Html } from '@react-three/drei'
+const mols={Water:{a:[[0,0,0,'#ef4444','O'],[1.2,0.8,0,'#e5e7eb','H'],[-1.2,0.8,0,'#e5e7eb','H']],i:'Two H bonded to O.'},Methane:{a:[[0,0,0,'#64748b','C'],[1.2,0,0,'#e5e7eb','H'],[-1.2,0,0,'#e5e7eb','H'],[0,1.2,0,'#e5e7eb','H']],info:'C bonded to 4 H.'}}
+export default function MoleculeScene(){const[n,setN]=useState<keyof typeof mols>('Water');const m=mols[n];return(<div className='space'><div className='row'>{Object.keys(mols).map(k=><button key={k} onClick={()=>setN(k as keyof typeof mols)}>{k}</button>)}</div><div style={{height:360,borderRadius:18,overflow:'hidden',border:'1px solid #26375c'}}><Canvas camera={{position:[0,1,7]}}><ambientLight/><directionalLight/>{m.a.map((a:any,i:number)=><mesh key={i} position={[a[0],a[1],a[2]]}><sphereGeometry args={[0.5,32,32]}/><meshStandardMaterial color={a[3]}/><Html center><div style={{color:'white',fontWeight:700}}>{a[4]}</div></Html></mesh>)}<OrbitControls/></Canvas></div><div className='fb'>{m.info}</div></div>)}

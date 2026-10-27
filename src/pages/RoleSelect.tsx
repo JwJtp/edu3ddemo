@@ -1,0 +1,3 @@
+import { useNavigate } from 'react-router-dom'
+import { useStore } from '../store/useStore'
+export default function RoleSelect(){const setRole=useStore(s=>s.setRole);const n=useNavigate();const go=(r:any)=>{setRole(r);useStore.getState().updateStreak();n(r==='student'?'/student':r==='teacher'?'/teacher':'/parent')};return(<div className="page"><div className="card"><h1>Choose demo role</h1><div className="grid grid-3" style={{marginTop:16}}><button className="btn-primary" onClick={()=>go('student')}>🎓 Student</button><button className="btn-primary" onClick={()=>go('teacher')}>👩‍🏫 Teacher</button><button className="btn-primary" onClick={()=>go('parent')}>👨‍👩‍👧 Parent</button></div></div></div>)}

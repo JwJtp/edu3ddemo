@@ -1,0 +1,5 @@
+import { lazy,Suspense } from 'react'
+const map:Record<string,any>={
+cell:lazy(()=>import('./CellScene')),photosynthesis:lazy(()=>import('./PhotosynthesisScene')),body:lazy(()=>import('./BodyScene')),dna:lazy(()=>import('./DNAScene')),motion:lazy(()=>import('./MotionScene')),waves:lazy(()=>import('./WavesScene')),circuit:lazy(()=>import('./CircuitScene')),optics:lazy(()=>import('./OpticsScene')),atom:lazy(()=>import('./AtomScene')),molecule:lazy(()=>import('./MoleculeScene')),ph:lazy(()=>import('./PHScene')),periodic:lazy(()=>import('./PeriodicScene')),geometry:lazy(()=>import('./GeometryScene')),graph:lazy(()=>import('./GraphScene')),probability:lazy(()=>import('./ProbabilityScene'))
+}
+export default function SceneRouter({scene}:{scene:string}){const S=map[scene]??map.cell;return <Suspense fallback={<div className='card'>Loading 3D…</div>}><S/></Suspense>}

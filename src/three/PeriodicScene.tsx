@@ -1,0 +1,3 @@
+import { useState } from 'react'
+const els=['H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar']
+export default function PeriodicScene(){const[s,setS]=useState('C');return(<div className='card'><div style={{display:'grid',gridTemplateColumns:'repeat(9,1fr)',gap:6}}>{els.map(e=><button key={e} onClick={()=>setS(e)} style={{background:s===e?'#4f8cff':'#16223d'}}>{e}</button>)}</div><div className='fb'>Selected: {s}</div></div>)}
